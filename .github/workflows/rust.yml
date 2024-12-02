@@ -23,4 +23,6 @@ jobs:
       - name: Build
         run: cargo build --release
       - name: Run tests
-        run: ./test.sh
+        run: ./test.sh > benchmark_report.md
+      - name: Summary
+        run:  cat benchmark_report.md >> $GITHUB_STEP_SUMMARY
