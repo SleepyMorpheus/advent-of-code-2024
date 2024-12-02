@@ -1,17 +1,18 @@
 use std::fs;
 use std::io;
 
-mod aoc01_a;
-mod aoc01_b;
+mod aoc01;
+mod aoc02;
 
 pub fn run(day: i32, first: bool, test: bool) -> Result<i32, io::Error> {
-
     let data = load_data(day, test)?;
     let data = data.iter().map(|x| x.as_str()).collect::<Vec<&str>>();
 
     let output = match (day, first) {
-        (1, true) => aoc01_a::aoc01_a(data),
-        (1, false) => aoc01_b::aoc01_b(data),
+        (1, true) => aoc01::aoc01_a(data),
+        (1, false) => aoc01::aoc01_b(data),
+        (2, true) => aoc02::aoc02_a(data),
+        (2, false) => aoc02::aoc02_b(data),
         _ => -1,
     };
 
