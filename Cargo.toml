@@ -5,3 +5,9 @@ edition = "2021"
 
 [dependencies]
 regex = "1.11.1"
+
+[profile.release]
+opt-level = 3      # Maximize size optimization (alternative: "3" for performance)
+lto = true           # Link Time Optimization
+codegen-units = 1    # Reduce parallelism for better optimization
+strip = true
