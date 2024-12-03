@@ -4,8 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-regex = "1.11.1"
-regex-lite = "0.1.6"
 
 [profile.release]
 opt-level = 3      # Maximize size optimization (alternative: "3" for performance)
