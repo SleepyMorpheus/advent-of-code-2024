@@ -1,4 +1,4 @@
-use regex::Regex;
+use regex_lite::Regex;
 use std::cmp::PartialEq;
 use crate::lib::input_parser::load_as_string;
 
