@@ -1,12 +1,11 @@
 use regex::Regex;
 use std::cmp::PartialEq;
+use crate::lib::input_parser::load_as_string;
 
-pub fn part_a(data: Vec<&str>) -> i32 {
-    println!("{:?}", data.join("\n"));
+pub fn part_a(path: String) -> i32 {
     let regex = Regex::new(r"mul\([1-9][0-9]{0,2},[1-9][0-9]{0,2}\)").unwrap();
     let mut sum = 0;
-    for occ in regex.find_iter(&*data.join("\n")) {
-        println!("{:?}", occ);
+    for occ in regex.find_iter(&*load_as_string(path)) {
         let mut parts = occ.as_str().replace("mul(", "").replace(")", "");
         let mut parts = parts.split(",");
         sum += parts.next().unwrap().parse::<i32>().unwrap()
@@ -21,12 +20,11 @@ enum Mode {
     DONT,
 }
 
-pub fn part_b(data: Vec<&str>) -> i32 {
-    let regex_mul =
-        Regex::new(r"(mul\([1-9][0-9]{0,2},[1-9][0-9]{0,2}\))|(do\(\))|don't\(\)").unwrap();
+pub fn part_b(path: String) -> i32 {
     let mut sum = 0;
     let mut prev_instr = Mode::DO;
-    for occ in regex_mul.find_iter(&*data.join("\n")) {
+    let regex_mul = Regex::new(r"(mul\([1-9][0-9]{0,2},[1-9][0-9]{0,2}\))|(do\(\))|don't\(\)").unwrap();
+    for occ in regex_mul.find_iter(&*load_as_string(path)) {
         let occ = occ.as_str();
         match (occ) {
             "do()" => prev_instr = Mode::DO,

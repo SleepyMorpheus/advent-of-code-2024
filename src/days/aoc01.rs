@@ -1,6 +1,8 @@
 use std::collections::HashMap;
+use crate::lib::input_parser::load_as_vec;
 
-pub fn aoc01_a(data: Vec<&str>) -> i32 {
+pub fn aoc01_a(path: String) -> i32 {
+    let data = load_as_vec(path);
     let mut list_a: Vec<i32> = vec![];
     let mut list_b: Vec<i32> = vec![];
 
@@ -21,7 +23,8 @@ pub fn aoc01_a(data: Vec<&str>) -> i32 {
     tot_diff
 }
 
-pub fn aoc01_b(data: Vec<&str>) -> i32 {
+pub fn aoc01_b(path: String) -> i32 {
+    let data = load_as_vec(path);
     let mut list_a: Vec<i32> = vec![];
     let mut map_b: HashMap<i32, i32> = HashMap::new();
 
