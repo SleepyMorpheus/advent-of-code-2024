@@ -1,5 +1,4 @@
-use std::cmp::{PartialEq};
-
+use std::cmp::PartialEq;
 
 pub fn part_a(data: Vec<&str>) -> i32 {
     -1

@@ -1,4 +1,4 @@
-use std::cmp::{PartialEq};
+use std::cmp::PartialEq;
 
 #[derive(PartialOrd, PartialEq)]
 enum Change {
@@ -38,7 +38,7 @@ pub fn aoc02_b(data: Vec<&str>) -> i32 {
             for i in 0..(arr.len() as i32) {
                 if check(arr.clone(), Some(i)) {
                     n_save += 1;
-                    break
+                    break;
                 }
             }
         }
