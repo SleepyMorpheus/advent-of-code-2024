@@ -2,7 +2,7 @@ use crate::days::run;
 use std::env;
 
 pub mod days;
-mod lib;
+pub mod helper;
 
 fn main() {
     let args: Vec<String> = env::args().collect();

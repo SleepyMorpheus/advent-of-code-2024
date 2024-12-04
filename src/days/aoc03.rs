@@ -1,4 +1,4 @@
-use crate::lib::input_parser::load_as_string;
+use crate::helper::input_parser::load_as_string;
 
 fn part_a_helper(data: String) -> i32 {
     data.split("mul(")

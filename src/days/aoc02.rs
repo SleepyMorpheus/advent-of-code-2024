@@ -1,5 +1,5 @@
 use std::cmp::PartialEq;
-use crate::lib::input_parser::load_matrix;
+use crate::helper::input_parser::load_matrix;
 
 #[derive(PartialOrd, PartialEq)]
 enum Change {

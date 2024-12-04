@@ -1,5 +1,7 @@
+use std::fmt::{Debug, Display};
 use std::fs::File;
 use std::io::{BufRead, Read};
+use std::str::FromStr;
 
 pub fn resolve_path(day: i32, test: bool) -> String {
     if test {
@@ -20,13 +22,13 @@ pub fn load_as_vec(path: String) -> Vec<String> {
     load_as_string(path).lines().map(|x| x.to_string()).collect()
 }
 
-pub fn load_matrix(path: String, sep: &str) -> Vec<Vec<i32>> {
+pub fn load_matrix<T: FromStr>(path: String, sep: &str) -> Vec<Vec<T>> {
     let mut matrix = Vec::new();
     let file = File::open(path).unwrap();
     let reader = std::io::BufReader::new(file);
     for line in reader.lines() {
         let line = line.unwrap();
-        let row = line.split(&sep).map(|x| x.parse::<i32>().unwrap()).collect();
+        let row = line.split(&sep).map(|x| x.parse::<T>().ok().unwrap()).collect();
         matrix.push(row);
     }
     matrix
