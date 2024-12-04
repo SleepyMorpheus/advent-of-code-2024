@@ -34,7 +34,7 @@ pub fn load_matrix<T: FromStr>(path: String, sep: &str) -> Vec<Vec<T>> {
     matrix
 }
 
-pub fn load_matrix_string<>(path: String) -> Vec<Vec<char>> {
+pub fn load_matrix_chars<>(path: String) -> Vec<Vec<char>> {
     let file = File::open(path).unwrap();
     let reader = std::io::BufReader::new(file);
     reader.lines().map(|x| x.unwrap().chars().collect()).collect()

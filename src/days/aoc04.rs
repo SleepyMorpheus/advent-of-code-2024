@@ -1,16 +1,16 @@
-use crate::helper::input_parser::{load_matrix, load_matrix_string};
+use crate::helper::input_parser::{load_matrix, load_matrix_chars};
 
 pub fn part_a(path: String) -> i32 {
     let mut matches = 0;
-    let matrix = &load_matrix::<String>(path, "");
+    let matrix = &load_matrix_chars(path);
     for i in 0..matrix.len() {
         for j in 0..matrix[0].len() {
-            if matrix[i][j] != "X" {
+            if matrix[i][j] != 'X' {
                 continue;
             }
             for dx in -1..2 {
                 for dy in -1..2 {
-                    if start_check(matrix, i as i32, j as i32, dx, dy) == "XMAS" {
+                    if start_check(matrix, i as i32, j as i32, dx, dy) {
                         matches += 1;
                     }
                 }
@@ -21,20 +21,25 @@ pub fn part_a(path: String) -> i32 {
     matches
 }
 
-pub fn start_check(matrix: &Vec<Vec<String>>, mut x: i32 , mut y: i32, dx: i32, dy: i32) -> String {
-    let mut output = String::with_capacity(4);
-    while output.len() < 4 && 0 <= x && x < matrix.len() as i32 && 0 <= y && y < matrix[0].len() as i32 {
-        output = output + matrix.get(x as usize).unwrap().get(y as usize).unwrap();
+pub fn start_check(matrix: &Vec<Vec<char>>, mut x: i32, mut y: i32, dx: i32, dy: i32) -> bool {
+    let reference = "XMAS";
+    for c in reference.chars() {
+        if x < 0 || y < 0 || x >= matrix.len() as i32 || y >= matrix[0].len() as i32 {
+            return false;
+        }
+        if matrix[x as usize][y as usize] != c {
+            return false;
+        }
         x += dx;
         y += dy;
     }
-    output
+    true
 }
 
 
 pub fn part_b(path: String) -> i32 {
     let mut matches = 0;
-    let matrix = &load_matrix_string(path);
+    let matrix = &load_matrix_chars(path);
     for i in 1..matrix.len()-1 {
         for j in 1..matrix[0].len()-1 {
             if matrix[i][j] != 'A' {
