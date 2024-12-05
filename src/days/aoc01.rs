@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::helper::input_parser::load_as_vec;
+use std::collections::HashMap;
 
 pub fn aoc01_a(path: String) -> i32 {
     let data = load_as_vec(path);

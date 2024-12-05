@@ -1,4 +1,4 @@
-use crate::helper::input_parser::{load_matrix, load_matrix_chars};
+use crate::helper::input_parser::load_matrix_chars;
 
 pub fn part_a(path: String) -> i32 {
     let mut matches = 0;
@@ -15,7 +15,6 @@ pub fn part_a(path: String) -> i32 {
                     }
                 }
             }
-
         }
     }
     matches
@@ -36,22 +35,22 @@ pub fn start_check(matrix: &Vec<Vec<char>>, mut x: i32, mut y: i32, dx: i32, dy:
     true
 }
 
-
 pub fn part_b(path: String) -> i32 {
     let mut matches = 0;
     let matrix = &load_matrix_chars(path);
-    for i in 1..matrix.len()-1 {
-        for j in 1..matrix[0].len()-1 {
+    for i in 1..matrix.len() - 1 {
+        for j in 1..matrix[0].len() - 1 {
             if matrix[i][j] != 'A' {
                 continue;
             }
 
-            let a = matrix[i-1][j-1] == 'M' && matrix[i+1][j+1] == 'S' ||  matrix[i-1][j-1] == 'S' && matrix[i+1][j+1] == 'M';
-            let b = matrix[i+1][j-1] == 'M' && matrix[i-1][j+1] == 'S' ||  matrix[i+1][j-1] == 'S' && matrix[i-1][j+1] == 'M';
+            let a = matrix[i - 1][j - 1] == 'M' && matrix[i + 1][j + 1] == 'S'
+                || matrix[i - 1][j - 1] == 'S' && matrix[i + 1][j + 1] == 'M';
+            let b = matrix[i + 1][j - 1] == 'M' && matrix[i - 1][j + 1] == 'S'
+                || matrix[i + 1][j - 1] == 'S' && matrix[i - 1][j + 1] == 'M';
             if a && b {
                 matches += 1;
             }
-
         }
     }
     matches

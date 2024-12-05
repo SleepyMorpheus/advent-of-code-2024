@@ -1,5 +1,5 @@
-use std::cmp::PartialEq;
 use crate::helper::input_parser::load_matrix;
+use std::cmp::PartialEq;
 
 #[derive(PartialOrd, PartialEq)]
 enum Change {
@@ -9,17 +9,18 @@ enum Change {
 }
 
 pub fn aoc02_a(path: String) -> i32 {
-    load_matrix(path, " ").iter().fold(0, |acc, x| {
-        match check(x, None) { 
+    load_matrix(path, " ")
+        .iter()
+        .fold(0, |acc, x| match check(x, None) {
             true => acc + 1,
             false => acc,
-        }
-    })
+        })
 }
 
 pub fn aoc02_b(path: String) -> i32 {
-    load_matrix(path, " ").iter().fold(0, |mut acc, x| {
-        match check(x, None) {
+    load_matrix(path, " ")
+        .iter()
+        .fold(0, |mut acc, x| match check(x, None) {
             true => acc + 1,
             false => {
                 for i in 0..(x.len() as i32) {
@@ -30,8 +31,7 @@ pub fn aoc02_b(path: String) -> i32 {
                 }
                 acc
             }
-        }
-    })
+        })
 }
 
 fn check(arr: &[i32], except: Option<i32>) -> bool {

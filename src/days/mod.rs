@@ -1,11 +1,12 @@
+use crate::helper::input_parser::resolve_path;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader};
-use crate::helper::input_parser::resolve_path;
 
 mod aoc01;
 mod aoc02;
 mod aoc03;
 mod aoc04;
+mod aoc05;
 
 pub fn run(day: i32, first: bool, test: bool) -> Result<i32, io::Error> {
     let path = resolve_path(day, test);
@@ -19,6 +20,8 @@ pub fn run(day: i32, first: bool, test: bool) -> Result<i32, io::Error> {
         (3, false) => aoc03::part_b(path),
         (4, true) => aoc04::part_a(path),
         (4, false) => aoc04::part_b(path),
+        (5, true) => aoc05::part_a(path),
+        (5, false) => aoc05::part_b(path),
         _ => -1,
     };
 
