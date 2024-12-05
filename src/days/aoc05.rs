@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use crate::helper::input_parser::{load_matrix_two};
 use std::collections::{HashMap};
 
@@ -28,19 +29,18 @@ fn check_update(update: &Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> Option<i32
     Some(update[update.len() / 2])
 }
 
-fn fix_update(update: &mut Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> bool {
-    let mut change = false;
-    for i in 0..update.len() {
-        for j in (i + 1)..update.len() {
-            if let Some(neighbors) = graph.get(&update[i]) {
-                if neighbors.contains(&update[j]) {
-                    update.swap(i, j);
-                    change = true;
-                }
-            }
+fn fix_update(update: &Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> i32 {
+    let mut update = update.clone();
+    update.sort_by(|a,b| {
+        if graph.get(a).unwrap().contains(b) {
+            Ordering::Less
+        } else if graph.get(b).unwrap().contains(a) { 
+            Ordering::Greater
+        } else {
+            Ordering::Equal
         }
-    }
-    change
+    });
+    update[update.len() / 2]
 }
 
 pub fn part_b(path: String) -> i32 {
@@ -56,14 +56,6 @@ pub fn part_b(path: String) -> i32 {
         if check_update(update, &graph).is_some() {
             return acc;
         }
-
-        let mut update = update.clone();
-        loop {
-            if !fix_update(&mut update, &graph) {
-                break;
-            }
-        }
-
-        acc + update[update.len() / 2]
+        acc + fix_update(update, &graph)
     })
 }
