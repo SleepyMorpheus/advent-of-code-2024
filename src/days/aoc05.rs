@@ -34,6 +34,7 @@ fn check_update(update: &Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> Option<i32
 }
 
 fn fix_update(update: &mut Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> bool {
+    let mut change = false;
     for i in 0..update.len() {
         for j in (i + 1)..update.len() {
             // Check if update[j] is a direct neighbor of update[i]
@@ -41,12 +42,12 @@ fn fix_update(update: &mut Vec<i32>, graph: &HashMap<i32, Vec<i32>>) -> bool {
                 if neighbors.contains(&update[j]) {
                     // Swap the values at indices i and j
                     update.swap(i, j);
-                    return true;
+                    change = true;
                 }
             }
         }
     }
-    false
+    change
 }
 
 pub fn part_b(path: String) -> i32 {
