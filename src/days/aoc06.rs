@@ -1,5 +1,8 @@
-use crate::helper::input_parser::{load_matrix_chars, load_matrix_two};
-use std::collections::{HashMap, HashSet};
+use crate::helper::input_parser::{load_matrix_chars};
+use std::collections::{HashSet};
+
+const MOVEMENTS: [(i32, i32); 4] = [(-1, 0), (0, 1), (1, 0), (0, -1)];
+
 
 fn find_starting_position(matrix: &Vec<Vec<char>>) -> (i32, i32) {
     matrix.iter().enumerate().fold((0,0), |acc, (i, row)| {
@@ -14,7 +17,6 @@ pub fn part_a(path: String) -> i32 {
     let matrix = &mut load_matrix_chars(path);
     
     let pos_start = find_starting_position(matrix);
-    let movements = vec![(-1,0), (0,1), (1,0), (0,-1)];
     let mut pos = pos_start;
     let mut dir = 0;
     
@@ -23,7 +25,7 @@ pub fn part_a(path: String) -> i32 {
     loop {
         visited.insert(pos);
         
-        let next_pos = (pos.0 + movements[dir].0,pos.1 + movements[dir].1);
+        let next_pos = (pos.0 + MOVEMENTS[dir].0,pos.1 + MOVEMENTS[dir].1);
         if !(0 <= next_pos.0 && next_pos.0 < matrix.len() as i32 && 0 <= next_pos.1 && next_pos.1 < matrix.len() as i32) {
             break
         }
@@ -40,20 +42,22 @@ pub fn part_a(path: String) -> i32 {
 }
 
 fn visits_start(matrix: &Vec<Vec<char>>, start: (i32, i32)) -> bool {
+    let width = matrix.len();
+    let width_i32 = matrix.len() as i32;
     let mut pos = start;
-    let movements = vec![(-1,0), (0,1), (1,0), (0,-1)];
     let mut dir = 0;
 
-    let mut visited: HashSet<(i32, i32, usize)> = HashSet::new();
+    let mut visited = vec![false; width * width * 4];
     
     loop {
-        if visited.contains(&(pos.0, pos.1, dir)) {
+        let idx = (pos.0 as usize) * width * 4 + (pos.1 as usize) * 4 + dir;
+        if visited[idx] {
             return true
         }
-        visited.insert((pos.0, pos.1, dir));
+        visited[idx] = true;
         
-        let next_pos = (pos.0 + movements[dir].0,pos.1 + movements[dir].1);
-        if !(0 <= next_pos.0 && next_pos.0 < matrix.len() as i32 && 0 <= next_pos.1 && next_pos.1 < matrix.len() as i32) {
+        let next_pos = (pos.0 + MOVEMENTS[dir].0,pos.1 + MOVEMENTS[dir].1);
+        if !(0 <= next_pos.0 && next_pos.0 < width_i32 && 0 <= next_pos.1 && next_pos.1 < width_i32) {
             break
         }
 
@@ -62,7 +66,6 @@ fn visits_start(matrix: &Vec<Vec<char>>, start: (i32, i32)) -> bool {
         } else {
             pos = next_pos
         }
-        
     }
     false
 }
@@ -84,9 +87,6 @@ pub fn part_b(path: String) -> i32 {
             }
         }
     }
- 
-    
-
 
     obstacles
 }
