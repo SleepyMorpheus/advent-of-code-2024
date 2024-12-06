@@ -3,7 +3,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use std::hint::black_box;
 
 fn criterion_benchmark(c: &mut Criterion) {
-    for day in 4..6 {
+    for day in 5..7 {
         c.bench_function(format!("Day {}a", day).as_str(), |b| {
             b.iter(|| (black_box(run(day, true, false))))
         });

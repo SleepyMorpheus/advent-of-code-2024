@@ -7,6 +7,7 @@ mod aoc02;
 mod aoc03;
 mod aoc04;
 mod aoc05;
+mod aoc06;
 
 pub fn run(day: i32, first: bool, test: bool) -> Result<i32, io::Error> {
     let path = resolve_path(day, test);
@@ -22,6 +23,8 @@ pub fn run(day: i32, first: bool, test: bool) -> Result<i32, io::Error> {
         (4, false) => aoc04::part_b(path),
         (5, true) => aoc05::part_a(path),
         (5, false) => aoc05::part_b(path),
+        (6, true) => aoc06::part_a(path),
+        (6, false) => aoc06::part_b(path),
         _ => -1,
     };
 
