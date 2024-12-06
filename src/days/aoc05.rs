@@ -1,5 +1,5 @@
-use crate::helper::input_parser::{load_matrix_two};
-use std::collections::{HashMap};
+use crate::helper::input_parser::load_matrix_two;
+use std::collections::HashMap;
 
 pub fn part_a(path: String) -> i32 {
     let (rules, updates) = load_matrix_two::<i32>(path, "|", ",", "");

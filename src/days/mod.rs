@@ -1,6 +1,5 @@
 use crate::helper::input_parser::resolve_path;
-use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io::{self};
 
 mod aoc01;
 mod aoc02;
