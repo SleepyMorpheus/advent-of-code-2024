@@ -9,19 +9,43 @@ fn parse_line(line: &str) -> (i64, Vec<i64>) {
     (left.parse::<i64>().unwrap(), right)
 }
 
-fn recursive(num: &[i64], curr: i64, cmp: i64) -> bool {
+enum Op {
+    M,
+    A
+}
+
+fn recursive(num: &[i64], curr: i64, last_op: Op) -> bool {
     match num.split_first() {
-        None => curr == cmp,
+        None => {
+            match last_op {
+                Op::A => curr == 0,
+                Op::M => curr == 1
+            }
+        },
         Some((x, xs)) => {
-            recursive(xs, curr * x, cmp) || recursive(xs, curr + x, cmp)
+            // curr / x % 0
+            if curr % x == 0 {
+                if recursive(xs, curr / x, Op::M) {
+                    return true
+                }
+            }
+            if curr - x >= 0 {
+                if recursive(xs, curr - x, Op::A) {
+                    return true
+                }
+            }
+            false
         }
     }
 }
 
 pub fn part_a(path: String) -> i32 {
     let result = load_as_vec(path).iter().fold(0, |acc, line| {
-        let (left, right) = parse_line(line);
-        match recursive(&*right, 0, left) { 
+        let (left, mut right) = parse_line(line);
+        right.reverse();
+        let res = recursive(&*right, left, Op::M);
+        println!("{}", res);
+        match res { 
             true => acc + left,
             false => acc
         }
